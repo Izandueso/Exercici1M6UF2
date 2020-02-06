@@ -17,20 +17,22 @@ public class InsertDataDemo {
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/JDBCDemo", "root", "admin");
+					.getConnection("jdbc:mysql://localhost:3306/alumnes", "root", "");
 
 			stmt = connection.createStatement();
 			
 			//Si vol inserir
 			if(menu == 1){
-				stmt.execute("INSERT INTO ALUMNES (NOM, DNI, DATA_NAIXEMENT, ADREÇA, CODI_POSTAL, POBLACIO) "
-						+ "VALUES (PEPE, 829384728P, 20/12/1992, C/ CIUTAT 3, 43840, TARRAGONA)");
+				stmt.execute("INSERT INTO ALUMNES (NOM, DNI, DATA_NAIXEMENT, ADREÇA, CODI_POSTAL, POBLACIO) VALUES ('PEPE', '82984728P', '1992-12-21', 'C/ CIUTAT 3', '43840', 'TARRAGONA')");
+				System.out.println("Inserit correctament");
 			//Si vol modificar
 			}else if(menu == 2){
-				
+				stmt.execute("SELECT NOM,DATA_NAIXEMENT,ADREÇA FROM ALUMNES WHERE DNI = '82984728P'");
+				System.out.println("Llistat correctament");
 			//Si vol eliminar
 			}else if(menu == 3){
-				stmt.execute("DELETE FROM ALUMNES WHERE DNI == 829384728P");
+				stmt.execute("DELETE FROM ALUMNES WHERE DNI = '82984728P'");
+				System.out.println("Eliminat correctament");
 			//Si no entra al menu
 			}else{
 				System.out.println("error");
