@@ -3,6 +3,8 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 public class InsertDataDemo {
 	public static void main(String[] args) {
 		Connection connection = null;
@@ -27,8 +29,14 @@ public class InsertDataDemo {
 			
 			//Si vol inserir
 			if(menu == 1){
-				stmt.execute("INSERT INTO ALUMNES (NOM, DNI, DATA_NAIXEMENT, ADREÇA, CODI_POSTAL) VALUES ('PEPE', '82984728P', '1992-12-21', 'C/ CIUTAT 3', '43840')");
-				System.out.println("Inserit correctament");
+				try{
+					stmt.execute("INSERT INTO ALUMNES (NOM, DNI, DATA_NAIXEMENT, ADREÇA, CODI_POSTAL) VALUES ('PEPE', '82984728P', '1992-12-21', 'C/ CIUTAT 3', '43840')");
+					System.out.println("Inserit correctament");
+				}catch(MySQLIntegrityConstraintViolationException e){
+					e.printStackTrace();
+					System.out.println("Codi postal no valid");
+				}
+				
 			//Si vol modificar
 			}else if(menu == 2){
 				stmt.execute("SELECT NOM,DATA_NAIXEMENT,ADREÇA FROM ALUMNES WHERE DNI = '82984728P'");
@@ -43,9 +51,14 @@ public class InsertDataDemo {
 			}
 			
 			//Si vol inserir
-			if(menu2 == 1){
-				stmt.execute("INSERT INTO POBLACIO (NOM, CODI_POSTAL) VALUES ('SALOU', '43840')");
-				System.out.println("Inserit correctament");
+			if(menu2 == 1){	
+				try{
+					stmt.execute("INSERT INTO POBLACIO (NOM, CODI_POSTAL) VALUES ('SALOU', '43840')");
+					System.out.println("Inserit correctament");
+				}catch(MySQLIntegrityConstraintViolationException e){
+					e.printStackTrace();
+					System.out.println("Codi postal no valid");
+				}
 			//Si vol modificar
 			}else if(menu2 == 2){
 				stmt.execute("SELECT NOM WHERE CODI_POSTAL = '43840'");
